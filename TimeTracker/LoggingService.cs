@@ -4,9 +4,9 @@ using Microsoft.Win32;
 
 namespace TimeTracker
 {
-  public static class LoggingService
+  public class LoggingService : ILoggingService
   {
-    public static void LogException(Exception exception)
+    public void LogException(Exception exception)
     {
       var message = "Exception:" + Environment.NewLine + 
                     exception.Message + Environment.NewLine +
@@ -20,17 +20,17 @@ namespace TimeTracker
       }
     }
     
-    public static void Log(DateTime dateTime, SessionSwitchReason sessionSwitchReason)
+    public void Log(DateTime dateTime, SessionSwitchReason sessionSwitchReason)
     {
       Log(dateTime, sessionSwitchReason.ToString());
     }
 
-    public static void Log(DateTime dateTime, Reason reason)
+    public void Log(DateTime dateTime, Reason reason)
     {
       Log(dateTime, reason.ToString());
     }
 
-    private static void Log(DateTime dateTime, string reason)
+    private void Log(DateTime dateTime, string reason)
     {
       try
       {
