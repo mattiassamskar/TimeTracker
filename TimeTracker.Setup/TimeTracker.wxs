@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="TimeTracker" Language="1033" Version="1.0.0.0" Manufacturer="Oh Snap! Development" UpgradeCode="7E3E68C5-CFD9-4F82-98CA-1E4428499964">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <Icon Id="TimeTracker.ico" SourceFile="..\TimeTracker\Resources\TimeTracker.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="TimeTracker.ico" />
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes"/>
+    
+		<Feature Id="ProductFeature" Title="TimeTracker" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="ApplicationShortcut" />
+		</Feature>
+
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="*">
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="TimeTracker" Description="TimeTracker" Target="[#TimeTracker.exe]" WorkingDirectory="APPLICATIONROOTDIRECTORY"/>
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\TimeTracker" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLFOLDER" Name="TimeTracker" />
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="TimeTracker"/>
+      </Directory>
+    </Directory>
+
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component>
+        <File Source="..\TimeTracker\bin\Release\Hardcodet.Wpf.TaskbarNotification.dll"/>
+      </Component>
+      <Component>
+        <File Id="TimeTracker.exe" Source="..\TimeTracker\bin\Release\TimeTracker.exe"/>
+      </Component>
+      <Component>
+        <RegistryValue Id="Autostart" Root="HKCU" Action="write" Key="Software\Microsoft\Windows\CurrentVersion\Run" Name="TimeTracker" Value="[#TimeTracker.exe]" Type="string" />
+      </Component>
+    </ComponentGroup>
+  </Product>
+</Wix>
