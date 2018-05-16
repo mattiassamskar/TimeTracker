@@ -2,7 +2,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product Id="*" Name="TimeTracker" Language="1033" Version="1.0.0.0" Manufacturer="Oh Snap! Development" UpgradeCode="7E3E68C5-CFD9-4F82-98CA-1E4428499964">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
-    <Icon Id="TimeTracker.ico" SourceFile="..\TimeTracker\Resources\TimeTracker.ico"/>
+    <Icon Id="TimeTracker.ico" SourceFile="..\TimeTracker\TimeTracker.ico"/>
     <Property Id="ARPPRODUCTICON" Value="TimeTracker.ico" />
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate EmbedCab="yes"/>
@@ -30,9 +30,6 @@
     </Directory>
 
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-      <Component>
-        <File Source="..\TimeTracker\bin\Release\Hardcodet.Wpf.TaskbarNotification.dll"/>
-      </Component>
       <Component>
         <File Id="TimeTracker.exe" Source="..\TimeTracker\bin\Release\TimeTracker.exe"/>
       </Component>

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Windows;
-using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Win32;
 
 namespace TimeTracker
 {
   public partial class App : Application
   {
-    private TaskbarIcon _notifyIcon;
+    private System.Windows.Forms.NotifyIcon _notifyIcon;
 
     public App()
     {
@@ -16,7 +15,15 @@ namespace TimeTracker
 
     protected override void OnStartup(StartupEventArgs args)
     {
-      _notifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
+      _notifyIcon = new System.Windows.Forms.NotifyIcon
+      {
+        Icon = Resource.TimeTracker,
+        Visible = true,
+        ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip()
+      };
+
+      _notifyIcon.ContextMenuStrip.Items.Add("Close").Click += (s, e) => Current.Shutdown();
+
       SystemEvents.SessionSwitch += (sender, e) => LoggingService.Log(DateTime.UtcNow, e.Reason);
       LoggingService.Log(DateTime.UtcNow, Reason.ApplicationStart);
       base.OnStartup(args);
@@ -26,6 +33,7 @@ namespace TimeTracker
     {
       LoggingService.Log(DateTime.UtcNow, Reason.ApplicationStop);
       _notifyIcon.Dispose();
+      _notifyIcon = null;
       base.OnExit(e);
     }
   }
