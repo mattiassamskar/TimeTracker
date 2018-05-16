@@ -30,12 +30,12 @@ namespace TimeTracker
     {
       var container = new Container();
       container.Register<ILoggingService, LoggingService>(Lifestyle.Singleton);
+      container.Register<IPersistenceService, PersistenceService>(Lifestyle.Singleton);
       container.Verify();
 
       _loggingService = container.GetInstance<ILoggingService>();
       _loggingService.Log(DateTime.UtcNow, Reason.ApplicationStart);
 
-      Dispatcher.UnhandledException += (s, a) => _loggingService.LogException(a.Exception);
       SystemEvents.SessionSwitch += (sender, e) => _loggingService.Log(DateTime.UtcNow, e.Reason);
 
       _notifyIcon = new System.Windows.Forms.NotifyIcon

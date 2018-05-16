@@ -6,6 +6,13 @@ namespace TimeTracker
 {
   public class LoggingService : ILoggingService
   {
+    private readonly IPersistenceService _persistenceService;
+
+    public LoggingService(IPersistenceService persistenceService)
+    {
+      _persistenceService = persistenceService;
+    }
+
     public void LogException(Exception exception)
     {
       var message = "Exception:" + Environment.NewLine + 
@@ -34,7 +41,7 @@ namespace TimeTracker
     {
       try
       {
-        Debug.Print(dateTime + " " + reason);
+        _persistenceService.Save(dateTime, reason);
       }
       catch (Exception e)
       {

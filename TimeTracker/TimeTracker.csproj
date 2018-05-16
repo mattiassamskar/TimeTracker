@@ -82,7 +82,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ILoggingService.cs" />
+    <Compile Include="IPersistenceService.cs" />
     <Compile Include="LoggingService.cs" />
+    <Compile Include="PersistenceService.cs" />
     <Compile Include="Reason.cs" />
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
