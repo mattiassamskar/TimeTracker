@@ -8,7 +8,7 @@ namespace TimeTracker
     {
         saveAction(new LogItem
         {
-          DateTime = DateTime.UtcNow,
+          DateTime = DateTime.Now,
           Text = text
         });
     }
