@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace TimeTracker
+﻿namespace TimeTracker
 {
   public interface IPersistenceService
   {
-    void Save(DateTime dateTime, string reason);
+    void Save(LogItem logItem);
   }
 }
